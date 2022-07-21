@@ -2,7 +2,7 @@ const express = require('express');
 const connection = require('../config');
 const router = express.Router();
 
-router.post('/create',(req,res,next)=>{
+router.post('/create',(req,res,next)=>{          // defined route for creating the stores 
     let store = req.body;
     console.log(store);
     var query = "insert into store (name,description,price) values(?,?,?)";
@@ -16,9 +16,9 @@ router.post('/create',(req,res,next)=>{
     })
 })
 
-router.get('/read',(req,res,next)=>{
-    var queryread = "select *from store";
-    connection.query(queryread,(err,results)=>{
+router.get('/read',(req,res,next)=>{                    // defined route for reading all the stores 
+    var queryread = "select *from store";                // next can be used for a middleware
+    connection.query(queryread,(err,results)=>{            // controller
         if(!err){
             return res.status(200).json(results);
         }
@@ -28,10 +28,10 @@ router.get('/read',(req,res,next)=>{
     })
 })
 
-router.get('/read/:id',(req,res,next)=>{
+router.get('/read/:id',(req,res,next)=>{                 // defined route for reading a particular store 
     const id = req.params.id;
-    var queryread = "select *from store where id=?";
-    connection.query(queryread,[id],(err,results)=>{
+    var queryread = "select *from store where id=?";           // mysql query 
+    connection.query(queryread,[id],(err,results)=>{          
         if(!err){
             return res.status(200).json(results);
         }
@@ -41,7 +41,7 @@ router.get('/read/:id',(req,res,next)=>{
     })
 })
 
-router.patch('/update/:id',(req,res,next)=>{
+router.patch('/update/:id',(req,res,next)=>{                    // defined route for updating a particular store 
     const id = req.params.id;
     let store = req.body;
     console.log(id);
@@ -60,8 +60,8 @@ router.patch('/update/:id',(req,res,next)=>{
 })
 
 
-router.delete('/delete/:id',(req,res,next)=>{
-    const id = req.params.id;
+router.delete('/delete/:id',(req,res,next)=>{                   // defined route for deleting a particular store 
+    const id = req.params.id;                                  // getting id from params
     var query ="delete from store where id=?";
     connection.query(query,[id],(err,results)=>{
         if(!err){
@@ -78,4 +78,4 @@ router.delete('/delete/:id',(req,res,next)=>{
 
 
 
-module.exports = router;
+module.exports = router;                    // exporting our router
