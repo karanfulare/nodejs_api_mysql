@@ -1,6 +1,5 @@
 const http = require('http');
 const express = require('express');
-const connection = require("./config")
 const route = require('./route/mystore');
 const port = 8000 ;
 
@@ -15,6 +14,6 @@ const server = http.createServer(app);
 server.listen(port);
 
 
-app.use('/product',route);
+app.use('/store',route);
 
 

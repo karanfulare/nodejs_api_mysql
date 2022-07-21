@@ -28,6 +28,19 @@ router.get('/read',(req,res,next)=>{
     })
 })
 
+router.get('/read/:id',(req,res,next)=>{
+    const id = req.params.id;
+    var queryread = "select *from store where id=?";
+    connection.query(queryread,[id],(err,results)=>{
+        if(!err){
+            return res.status(200).json(results);
+        }
+        else {
+            return res.status(500).json(err);
+        }
+    })
+})
+
 router.patch('/update/:id',(req,res,next)=>{
     const id = req.params.id;
     let store = req.body;
